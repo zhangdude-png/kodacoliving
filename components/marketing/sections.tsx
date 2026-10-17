@@ -192,58 +192,85 @@ export function CaseStudy() {
             </li>
           ))}
         </ul>
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          <article className="rounded-3xl border border-line bg-white p-6">
-            <div className="flex items-center justify-between gap-3">
+        {/*
+          One shared row grid from the lg breakpoint up, so the annual gross
+          lines and the leasing dividers sit on the same tracks. The Koda-only
+          waterfall is the last row of the dark card, so the light card ends
+          at its leasing note instead of stretching empty beside those rows.
+        */}
+        <div className="mt-6 grid gap-4 lg:grid-cols-2 lg:gap-x-4 lg:gap-y-0">
+          <article className="rounded-3xl border border-line bg-white p-6 lg:contents">
+            <div aria-hidden="true" className="hidden lg:col-start-1 lg:row-span-8 lg:row-start-1 lg:block lg:rounded-3xl lg:border lg:border-line lg:bg-white" />
+            <div className="flex items-center justify-between gap-3 lg:col-start-1 lg:row-start-1 lg:px-6 lg:pt-6">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/45">{before.kicker}</p>
-              <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{before.badge}</span>
+              <span className="shrink-0 rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{before.badge}</span>
             </div>
-            <h3 className="mt-3 font-heading text-2xl font-bold">{before.title}</h3>
-            <p className="mt-1 text-sm text-ink/60">{before.summary}</p>
-            <dl className="mt-6 grid gap-3 text-sm">
-              <div className="flex justify-between gap-4 border-b border-line py-2">
-                <dt>Monthly gross rent</dt>
-                <dd className="font-semibold">{sgd(before.monthlyGross)} / mo</dd>
-              </div>
-              <div className="flex justify-between gap-4 border-b border-line py-2">
-                <dt>Annual gross income</dt>
-                <dd className="font-semibold">{sgd(before.annualGross)} / yr</dd>
-              </div>
-            </dl>
-            <div className="mt-4 border-t border-dashed border-line pt-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-ink/45">{before.leasingLabel}</p>
-              <p className="mt-2 flex items-baseline justify-between gap-3">
-                <span>Agent fee</span>
-                <span className="font-semibold text-bad">{sgd(-before.agentFee)} / yr</span>
+            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-1 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{before.title}</h3>
+            <p className="mt-1 text-sm text-ink/60 lg:col-start-1 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{before.summary}</p>
+            <MoneyRow
+              tone="light"
+              label="Monthly gross rent"
+              value={`${sgd(before.monthlyGross)} / mo`}
+              className="mt-6 lg:col-start-1 lg:row-start-4 lg:mt-0 lg:px-6 lg:pt-5"
+            />
+            <MoneyRow
+              tone="light"
+              label="Annual gross income"
+              value={`${sgd(before.annualGross)} / yr`}
+              className="lg:col-start-1 lg:row-start-5 lg:px-6"
+            />
+            <div className="mt-4 lg:col-start-1 lg:row-start-6 lg:mt-0 lg:px-6 lg:pt-4">
+              <p className="border-t border-dashed border-line pt-4 text-xs font-semibold uppercase tracking-wide text-ink/45">
+                {before.leasingLabel}
               </p>
-              <p className="mt-1 text-xs text-ink/55">{before.agentFeeNote}</p>
             </div>
+            <p className="mt-2 flex items-baseline justify-between gap-3 text-sm lg:col-start-1 lg:row-start-7 lg:mt-0 lg:px-6 lg:pt-2">
+              <span className="whitespace-nowrap">Agent fee</span>
+              <span className="shrink-0 whitespace-nowrap font-semibold text-bad">{sgd(-before.agentFee)} / yr</span>
+            </p>
+            <p className="mt-1 text-xs text-ink/55 lg:col-start-1 lg:row-start-8 lg:mt-0 lg:px-6 lg:pt-1 lg:pb-6">{before.agentFeeNote}</p>
           </article>
-          <article className="rounded-3xl bg-[linear-gradient(180deg,#3a1768,#241038)] p-6 text-white">
-            <div className="flex items-center justify-between gap-3">
+          <article className="rounded-3xl bg-[linear-gradient(180deg,#3a1768,#241038)] p-6 text-white lg:contents">
+            <div aria-hidden="true" className="hidden lg:col-start-2 lg:row-span-9 lg:row-start-1 lg:block lg:rounded-3xl lg:bg-[linear-gradient(180deg,#3a1768,#241038)]" />
+            <div className="flex items-center justify-between gap-3 lg:col-start-2 lg:row-start-1 lg:px-6 lg:pt-6">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">{after.kicker}</p>
-              <span className="rounded-full bg-[#12b76a] px-2.5 py-1 text-xs font-semibold text-white">{after.badge}</span>
+              <span className="shrink-0 rounded-full bg-[#12b76a] px-2.5 py-1 text-xs font-semibold text-white">{after.badge}</span>
             </div>
-            <h3 className="mt-3 font-heading text-2xl font-bold">{after.title}</h3>
-            <p className="mt-1 text-sm text-white/70">{after.summary}</p>
-            <dl className="mt-6 grid gap-3 text-sm">
-              <Row label="Monthly gross rent" value={`${sgd(after.monthlyGross)} / mo`} />
-              <Row label="Running costs" value={`${sgd(-after.runningCosts)} / mo`} note={after.runningNote} negative />
-              <Row label="Net monthly income" value={`${sgd(after.netMonthly)} / mo`} positive />
-              <Row label="Setup cost (1-off)" value={sgd(after.setup)} note={after.setupNote} />
-              <Row label="Payback period" value={`~${after.paybackMonths} months`} />
-              <Row label="Annual net uplift" value={`+${sgd(after.annualNetUplift)} / yr`} positive />
-            </dl>
-            <div className="mt-4 border-t border-dashed border-white/20 pt-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-white/55">{after.leasingLabel}</p>
-              <p className="mt-2 flex items-baseline justify-between gap-3 text-sm">
-                <span>Leasing cost</span>
-                <span className="font-semibold">{sgd(-after.leasingCost)} / yr</span>
+            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-2 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{after.title}</h3>
+            <p className="mt-1 text-sm text-white/70 lg:col-start-2 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{after.summary}</p>
+            <MoneyRow
+              tone="dark"
+              label="Monthly gross rent"
+              value={`${sgd(after.monthlyGross)} / mo`}
+              className="mt-6 lg:col-start-2 lg:row-start-4 lg:mt-0 lg:px-6 lg:pt-5"
+            />
+            <MoneyRow
+              tone="dark"
+              label="Annual gross income"
+              value={`${sgd(after.annualGross)} / yr`}
+              className="lg:col-start-2 lg:row-start-5 lg:px-6"
+            />
+            <div className="mt-4 lg:col-start-2 lg:row-start-6 lg:mt-0 lg:px-6 lg:pt-4">
+              <p className="border-t border-dashed border-white/20 pt-4 text-xs font-semibold uppercase tracking-wide text-white/55">
+                {after.leasingLabel}
               </p>
-              <p className="mt-1 text-xs text-white/65">{after.leasingNote}</p>
-              <p className="mt-3 rounded-2xl bg-white/10 px-3 py-2 text-sm font-semibold text-[#b6f3d4]">
+            </div>
+            <p className="mt-2 flex items-baseline justify-between gap-3 text-sm lg:col-start-2 lg:row-start-7 lg:mt-0 lg:px-6 lg:pt-2">
+              <span className="whitespace-nowrap">Leasing cost</span>
+              <span className="shrink-0 whitespace-nowrap font-semibold">{sgd(-after.leasingCost)} / yr</span>
+            </p>
+            <p className="mt-1 text-xs text-white/65 lg:col-start-2 lg:row-start-8 lg:mt-0 lg:px-6 lg:pt-1 lg:pb-6">{after.leasingNote}</p>
+            <div className="lg:col-start-2 lg:row-start-9 lg:px-6 lg:pb-6">
+              <p className="mt-3 rounded-2xl bg-white/10 px-3 py-2 text-sm font-semibold text-[#b6f3d4] lg:mt-0">
                 Save {sgd(after.savePerYear)} / yr ({after.cheaperPct}% cheaper than a traditional agent)
               </p>
+              <dl className="mt-4">
+                <MoneyRow tone="dark" label="Running costs" value={`${sgd(-after.runningCosts)} / mo`} note={after.runningNote} valueClassName="text-[#ffb4b4]" />
+                <MoneyRow tone="dark" label="Net monthly income" value={`${sgd(after.netMonthly)} / mo`} valueClassName="text-[#8ef0c0]" />
+                <MoneyRow tone="dark" label="Setup cost (1-off)" value={sgd(after.setup)} note={after.setupNote} />
+                <MoneyRow tone="dark" label="Payback period" value={`~${after.paybackMonths} months`} />
+                <MoneyRow tone="dark" label="Annual net uplift" value={`+${sgd(after.annualNetUplift)} / yr`} valueClassName="text-[#8ef0c0]" />
+              </dl>
             </div>
           </article>
         </div>
@@ -252,28 +279,32 @@ export function CaseStudy() {
   );
 }
 
-function Row({
+function MoneyRow({
   label,
   value,
   note,
-  positive,
-  negative,
+  tone,
+  valueClassName = "",
+  className = "",
 }: {
   label: string;
   value: string;
   note?: string;
-  positive?: boolean;
-  negative?: boolean;
+  tone: "light" | "dark";
+  valueClassName?: string;
+  className?: string;
 }) {
+  const border = tone === "dark" ? "border-white/10" : "border-line";
+  const noteColor = tone === "dark" ? "text-white/50" : "text-ink/55";
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-white/10 py-2">
-      <dt>
-        {label}
-        {note ? <span className="mt-0.5 block text-xs font-normal text-white/50">{note}</span> : null}
-      </dt>
-      <dd className={positive ? "font-semibold text-[#8ef0c0]" : negative ? "font-semibold text-[#ffb4b4]" : "font-semibold"}>
-        {value}
-      </dd>
+    <div className={className}>
+      <div className={`flex items-start justify-between gap-4 border-b py-2.5 text-sm ${border}`}>
+        <p>
+          {label}
+          {note ? <span className={`mt-0.5 block text-xs font-normal ${noteColor}`}>{note}</span> : null}
+        </p>
+        <p className={`shrink-0 whitespace-nowrap font-semibold tabular-nums ${valueClassName}`}>{value}</p>
+      </div>
     </div>
   );
 }

@@ -52,6 +52,8 @@ export const stFrancis = {
     badge: "+72% Net Uplift",
     summary: "Reconfigured into 1 master room and 6 common rooms",
     monthlyGross: 9830,
+    /** Published figure: 9,830 × 12. */
+    annualGross: 117_960,
     runningCosts: 879,
     runningNote: "electricity, cleaning, aircon servicing",
     netMonthly: 8951,

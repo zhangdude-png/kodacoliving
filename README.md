@@ -50,7 +50,7 @@ Change `PREMIUM_PRICE_PER_ROOM_SGD` and the marketing page, calculator, and sett
 
 ## Content rules already applied
 
-- St Francis Court figures on `/for-landlords` are the published case study (S$5,200 whole-unit rent, S$9,830 coliving gross, S$8,951 net monthly, S$34,513 setup, ~9.2 month payback, +S$45,009 annual net uplift, leasing S$1,400 vs agent fee S$2,600).
+- St Francis Court figures on `/for-landlords` are the published case study (S$5,200 whole-unit rent, S$62,400 annual gross, S$9,830 coliving gross, S$117,960 coliving annual gross, S$8,951 net monthly, S$34,513 setup, ~9.2 month payback, +S$45,009 annual net uplift, leasing S$1,400 vs agent fee S$2,600).
 - The three case-study photos are the supplied St Francis images.
 - The operator console is a separate **demo portfolio** (4 units, 24 rooms, snapshot 30 June 2024). It is labelled as demo data and is not the case study.
 - No S$100 viewing price. No 6-pax or compliance claims. No resident names or document numbers.
