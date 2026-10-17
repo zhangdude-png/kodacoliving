@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1b1430;
+  --primary: #60308d;
+  --primary-dark: #4a2270;
+  --secondary: #44898c;
+  --secondary-ink: #1a4e50;
+  --tertiary: #5e4400;
+  --muted: #f5f5f5;
+  --line: #e6e3ee;
+  --ink: #1b1430;
+  --good: #067647;
+  --bad: #b42318;
+  --night: #160c28;
+  --soft: #f6f1fb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-ink: var(--secondary-ink);
+  --color-tertiary: var(--tertiary);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+  --color-night: var(--night);
+  --color-soft: var(--soft);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+}
+
+::selection {
+  background: #e7d8f5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
