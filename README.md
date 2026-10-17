@@ -100,10 +100,30 @@ The settings screen simulates plan changes, the syndication toggle, and a credit
 
 ## Deploy on Vercel
 
-1. Import the repository. Framework preset: Next.js. Build command `npm run build`. No install overrides.
-2. Set `NEXT_PUBLIC_SITE_URL` to the production origin so canonical URLs and the sitemap match the domain.
-3. Leave Supabase and Stripe variables empty until those projects exist. The demo still builds.
-4. Add the remaining variables from `.env.example` when you connect them. Do not put `SUPABASE_SERVICE_ROLE_KEY` or `STRIPE_SECRET_KEY` in a `NEXT_PUBLIC_` variable.
+GitHub is the source of truth: [github.com/zhangdude-png/kodacoliving](https://github.com/zhangdude-png/kodacoliving).
+
+1. In Vercel, choose **New Project**.
+2. **Continue with GitHub** and import `zhangdude-png/kodacoliving`.
+3. Framework preset: Next.js. Build command `npm run build`. No install overrides.
+
+**Required environment variables: none.** `next build` succeeds with an empty environment. The app runs on local demo data until Supabase and Stripe are connected.
+
+Set these when you have them. Leave them unset until then.
+
+| Variable | When to set it |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Production origin (`https://your-domain`). Canonical URLs, sitemap, and Open Graph use it. Falls back to `http://localhost:4317`. |
+| `NEXT_PUBLIC_WHATSAPP_URL` | Real WhatsApp link. Falls back to `https://wa.me/6500000000`. |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL. Unused while blank. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser key. Unused while blank. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server key for later webhooks. Never expose to the client, and never prefix it with `NEXT_PUBLIC_`. |
+| `STRIPE_SECRET_KEY` | Stripe secret. Unused while blank. Never prefix it with `NEXT_PUBLIC_`. |
+| `STRIPE_WEBHOOK_SECRET` | Webhook signing secret. |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe.js key, for a later checkout. |
+| `STRIPE_PRICE_BASIC_ANNUAL` | Price id, per room, S$15. |
+| `STRIPE_PRICE_BASIC_MONTHLY` | Price id, per room, S$20. |
+| `STRIPE_PRICE_PREMIUM` | Price id once Premium is chosen. |
+| `STRIPE_PRICE_VIEWING_CREDIT` | One-off price for a S$50 viewing credit. |
 
 Marketing pages are static server output (metadata, Open Graph image, sitemap, robots). `/app` is marked `noindex` and disallowed in `robots.txt`.
 
