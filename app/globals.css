@@ -65,3 +65,45 @@ h4 {
 summary::-webkit-details-marker {
   display: none;
 }
+
+html[lang="zh-Hans"] body {
+  font-family: var(--font-montserrat), var(--font-noto-sc), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[lang="zh-Hans"] h1,
+html[lang="zh-Hans"] h2,
+html[lang="zh-Hans"] h3,
+html[lang="zh-Hans"] h4,
+html[lang="zh-Hans"] .font-heading {
+  font-family: var(--font-montserrat), var(--font-noto-sc), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[lang="zh-Hans"] .uppercase {
+  letter-spacing: 0.04em;
+}
+
+@keyframes audience-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes audience-dialog-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.audience-overlay {
+  animation: audience-overlay-in 180ms ease-out both;
+}
+
+.audience-dialog {
+  animation: audience-dialog-in 220ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audience-overlay,
+  .audience-dialog {
+    animation: none;
+    transform: translate(-50%, -50%);
+  }
+}

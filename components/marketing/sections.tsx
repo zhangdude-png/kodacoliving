@@ -6,15 +6,10 @@ import { ConsolePreview } from "@/components/marketing/console-preview";
 import { WhatsAppIcon } from "@/components/marketing/whatsapp-icon";
 import { Button } from "@/components/ui/button";
 import { stFrancis } from "@/lib/case-study";
-import { comparisonRows, type FaqItem } from "@/lib/content";
 import { sgd } from "@/lib/format";
-import {
-  FIT_OUT_FROM_SGD,
-  MIN_STAY_MONTHS,
-  PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR,
-  VIEWING_CREDIT_SGD,
-} from "@/lib/pricing";
-import { siteConfig } from "@/lib/site";
+import { audiencePath, type Audience, type Locale } from "@/lib/i18n";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+import { getMessages, type MarketingMessages } from "@/messages";
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
@@ -34,8 +29,17 @@ function SectionLabel({ children }: { children: ReactNode }) {
   );
 }
 
-export function Hero({ audience }: { audience: "operators" | "landlords" }) {
+const featureIcons = [Bot, MessageCircle, Receipt, BadgeCheck, Wrench, CalendarClock];
+
+export function Hero({
+  audience,
+  copy,
+}: {
+  audience: Audience;
+  copy: MarketingMessages;
+}) {
   const landlord = audience === "landlords";
+  const hero = landlord ? copy.hero.landlords : copy.hero.operators;
   return (
     <section className="relative overflow-hidden bg-night text-white">
       <div className="absolute inset-0" aria-hidden="true">
@@ -51,26 +55,15 @@ export function Hero({ audience }: { audience: "operators" | "landlords" }) {
       </div>
       <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-16 sm:px-6 sm:pt-20">
         <div className="mx-auto max-w-4xl text-center">
-          <Eyebrow>
-            {landlord
-              ? "One-stop turnkey partner for Singapore landlords · Fitting from S$15,000"
-              : "Autonomous operations for Singapore coliving fleets"}
-          </Eyebrow>
+          <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 className="mt-5 font-heading text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
-            {landlord
-              ? "Convert & Maximize Your Rental Yield with Turnkey Coliving + AI Management."
-              : "Run 5 to 100 coliving rooms with a single autonomous AI crew."}
+            {hero.title}
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-white/85 sm:text-lg">
-            {landlord
-              ? "Koda Coliving is your end-to-end partner. From full architectural conversion, contractor fitting, and styling (from S$15,000) to autonomous AI tenant and property operations."
-              : "WhatsApp tenant service, verified viewings, tenancy onboarding, rent collection, and vendor dispatch — run by agents, with a takeover switch when you want the thread."}
+            {hero.body}
           </p>
           <ul className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm">
-            {(landlord
-              ? ["Fit-out from S$15,000", "+72% Net Uplift (St Francis)", "Zero landlord overhead"]
-              : ["5 to 100 rooms", "Per-room pricing", "Take over any thread"]
-            ).map((item) => (
+            {hero.chips.map((item) => (
               <li key={item} className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5">
                 {item}
               </li>
@@ -79,27 +72,25 @@ export function Hero({ audience }: { audience: "operators" | "landlords" }) {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             {landlord ? (
               <>
-                <BookConsultation size="lg">Book Free Unit Audit</BookConsultation>
+                <BookConsultation size="lg" copy={copy.consultation}>{hero.primary}</BookConsultation>
                 <Button variant="light" size="lg" asChild>
-                  <a href="#case-study">St Francis Case Study</a>
+                  <a href="#case-study">{hero.secondary}</a>
                 </Button>
               </>
             ) : (
               <>
-                <BookConsultation size="lg">Book Consultation</BookConsultation>
+                <BookConsultation size="lg" copy={copy.consultation}>{hero.primary}</BookConsultation>
                 <Button variant="light" size="lg" asChild>
-                  <a href="#pricing">See pricing</a>
+                  <a href="#pricing">{hero.secondary}</a>
                 </Button>
               </>
             )}
           </div>
         </div>
         <div className="relative z-10 mx-auto mt-12 max-w-5xl">
-          <ConsolePreview />
+          <ConsolePreview copy={copy.console} />
           {landlord ? (
-            <p className="mt-3 text-center text-xs text-white/60">
-              Product preview using demo room CR1 at S$1,650. Published St Francis rents are in the case study.
-            </p>
+            <p className="mt-3 text-center text-xs text-white/60">{copy.hero.landlords.previewNote}</p>
           ) : null}
         </div>
       </div>
@@ -107,46 +98,19 @@ export function Hero({ audience }: { audience: "operators" | "landlords" }) {
   );
 }
 
-const steps = [
-  {
-    n: "01",
-    title: "Unit audit",
-    body: "Floor plan, current lease, and a room-by-room rent map. The audit is free.",
-  },
-  {
-    n: "02",
-    title: "Turnkey fit-out",
-    body: `Architectural conversion, contractor fitting, and styling. Projects from ${sgd(FIT_OUT_FROM_SGD)}.`,
-  },
-  {
-    n: "03",
-    title: "Furnish and list",
-    body: "Rooms styled, photographed, and handed to the AI Property Agent.",
-  },
-  {
-    n: "04",
-    title: "Autonomous operations",
-    body: `Concierge, collection, viewings, and vendors. Minimum stay of ${MIN_STAY_MONTHS} months. Passes verified before move-in.`,
-  },
-];
-
-export function Process() {
+export function Process({ copy }: { copy: MarketingMessages }) {
   return (
     <section id="fit-out" className="scroll-mt-24 bg-white py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
-          <SectionLabel>Turnkey fit-out</SectionLabel>
-          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-            From a whole-unit rental to a coliving home.
-          </h2>
-          <p className="mt-3 text-ink/70">
-            You approve the plan and the fit-out. After handover, the crew runs the rooms.
-          </p>
+          <SectionLabel>{copy.process.label}</SectionLabel>
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.process.title}</h2>
+          <p className="mt-3 text-ink/70">{copy.process.body}</p>
         </div>
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => (
-            <li key={step.n} className="rounded-3xl border border-line bg-[#faf9fc] p-5">
-              <p className="font-heading text-sm font-bold text-primary">{step.n}</p>
+          {copy.process.steps.map((step, index) => (
+            <li key={step.title} className="rounded-3xl border border-line bg-[#faf9fc] p-5">
+              <p className="font-heading text-sm font-bold text-primary">{String(index + 1).padStart(2, "0")}</p>
               <h3 className="mt-3 font-heading text-lg font-bold">{step.title}</h3>
               <p className="mt-2 text-sm leading-6 text-ink/70">{step.body}</p>
             </li>
@@ -157,26 +121,29 @@ export function Process() {
   );
 }
 
-export function CaseStudy() {
+export function CaseStudy({ copy }: { copy: MarketingMessages }) {
+  const study = copy.caseStudy;
   const before = stFrancis.before;
   const after = stFrancis.after;
   return (
     <section id="case-study" className="scroll-mt-24 bg-[#f7f6fb] py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <SectionLabel>Real landlord performance case study</SectionLabel>
+          <SectionLabel>{study.label}</SectionLabel>
           <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-            {stFrancis.name}
+            {study.name}
           </h2>
-          <p className="mt-3 text-ink/70">{stFrancis.subtitle}</p>
+          <p className="mt-3 text-ink/70">{study.subtitle}</p>
         </div>
         <ul className="mt-10 grid gap-4 md:grid-cols-3">
-          {stFrancis.rooms.map((room) => (
+          {stFrancis.rooms.map((room, index) => {
+            const text = study.rooms[index];
+            return (
             <li key={room.key} className="overflow-hidden rounded-3xl border border-line bg-white">
               <div className="relative aspect-[16/10]">
                 <Image
                   src={room.image}
-                  alt={room.imageAlt}
+                  alt={text.imageAlt}
                   fill
                   className="object-cover"
                   sizes="(min-width: 768px) 33vw, 100vw"
@@ -184,13 +151,14 @@ export function CaseStudy() {
               </div>
               <div className="p-4">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-heading font-bold">{room.title}</h3>
-                  <p className="shrink-0 text-sm font-semibold text-primary">{room.price}</p>
+                  <h3 className="font-heading font-bold">{text.title}</h3>
+                  <p className="shrink-0 text-sm font-semibold text-primary">{text.price}</p>
                 </div>
-                <p className="mt-2 text-sm leading-6 text-ink/70">{room.body}</p>
+                <p className="mt-2 text-sm leading-6 text-ink/70">{text.body}</p>
               </div>
             </li>
-          ))}
+          );
+          })}
         </ul>
         {/*
           One shared row grid from the lg breakpoint up, so the annual gross
@@ -202,74 +170,74 @@ export function CaseStudy() {
           <article className="rounded-3xl border border-line bg-white p-6 lg:contents">
             <div aria-hidden="true" className="hidden lg:col-start-1 lg:row-span-8 lg:row-start-1 lg:block lg:rounded-3xl lg:border lg:border-line lg:bg-white" />
             <div className="flex items-center justify-between gap-3 lg:col-start-1 lg:row-start-1 lg:px-6 lg:pt-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/45">{before.kicker}</p>
-              <span className="shrink-0 rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{before.badge}</span>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/45">{study.beforeKicker}</p>
+              <span className="shrink-0 rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{study.beforeBadge}</span>
             </div>
-            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-1 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{before.title}</h3>
-            <p className="mt-1 text-sm text-ink/60 lg:col-start-1 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{before.summary}</p>
+            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-1 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{study.beforeTitle}</h3>
+            <p className="mt-1 text-sm text-ink/60 lg:col-start-1 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{study.beforeSummary}</p>
             <MoneyRow
               tone="light"
-              label="Monthly gross rent"
-              value={`${sgd(before.monthlyGross)} / mo`}
+              label={study.monthlyGross}
+              value={`${sgd(before.monthlyGross)} ${study.perMonth}`}
               className="mt-6 lg:col-start-1 lg:row-start-4 lg:mt-0 lg:px-6 lg:pt-5"
             />
             <MoneyRow
               tone="light"
-              label="Annual gross income"
-              value={`${sgd(before.annualGross)} / yr`}
+              label={study.annualGross}
+              value={`${sgd(before.annualGross)} ${study.perYear}`}
               className="lg:col-start-1 lg:row-start-5 lg:px-6"
             />
             <div className="mt-4 lg:col-start-1 lg:row-start-6 lg:mt-0 lg:px-6 lg:pt-4">
               <p className="border-t border-dashed border-line pt-4 text-xs font-semibold uppercase tracking-wide text-ink/45">
-                {before.leasingLabel}
+                {study.beforeLeasing}
               </p>
             </div>
             <p className="mt-2 flex items-baseline justify-between gap-3 text-sm lg:col-start-1 lg:row-start-7 lg:mt-0 lg:px-6 lg:pt-2">
-              <span className="whitespace-nowrap">Agent fee</span>
-              <span className="shrink-0 whitespace-nowrap font-semibold text-bad">{sgd(-before.agentFee)} / yr</span>
+              <span>{study.agentFee}</span>
+              <span className="shrink-0 whitespace-nowrap font-semibold text-bad">{sgd(-before.agentFee)} {study.perYear}</span>
             </p>
-            <p className="mt-1 text-xs text-ink/55 lg:col-start-1 lg:row-start-8 lg:mt-0 lg:px-6 lg:pt-1 lg:pb-6">{before.agentFeeNote}</p>
+            <p className="mt-1 text-xs text-ink/55 lg:col-start-1 lg:row-start-8 lg:mt-0 lg:px-6 lg:pt-1 lg:pb-6">{study.agentFeeNote}</p>
           </article>
           <article className="rounded-3xl bg-[linear-gradient(180deg,#3a1768,#241038)] p-6 text-white lg:contents">
             <div aria-hidden="true" className="hidden lg:col-start-2 lg:row-span-9 lg:row-start-1 lg:block lg:rounded-3xl lg:bg-[linear-gradient(180deg,#3a1768,#241038)]" />
             <div className="flex items-center justify-between gap-3 lg:col-start-2 lg:row-start-1 lg:px-6 lg:pt-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">{after.kicker}</p>
-              <span className="shrink-0 rounded-full bg-[#12b76a] px-2.5 py-1 text-xs font-semibold text-white">{after.badge}</span>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">{study.afterKicker}</p>
+              <span className="shrink-0 rounded-full bg-[#12b76a] px-2.5 py-1 text-xs font-semibold text-white">{study.afterBadge}</span>
             </div>
-            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-2 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{after.title}</h3>
-            <p className="mt-1 text-sm text-white/70 lg:col-start-2 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{after.summary}</p>
+            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-2 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{study.afterTitle}</h3>
+            <p className="mt-1 text-sm text-white/70 lg:col-start-2 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{study.afterSummary}</p>
             <MoneyRow
               tone="dark"
-              label="Monthly gross rent"
-              value={`${sgd(after.monthlyGross)} / mo`}
+              label={study.monthlyGross}
+              value={`${sgd(after.monthlyGross)} ${study.perMonth}`}
               className="mt-6 lg:col-start-2 lg:row-start-4 lg:mt-0 lg:px-6 lg:pt-5"
             />
             <MoneyRow
               tone="dark"
-              label="Annual gross income"
-              value={`${sgd(after.annualGross)} / yr`}
+              label={study.annualGross}
+              value={`${sgd(after.annualGross)} ${study.perYear}`}
               className="lg:col-start-2 lg:row-start-5 lg:px-6"
             />
             <div className="mt-4 lg:col-start-2 lg:row-start-6 lg:mt-0 lg:px-6 lg:pt-4">
               <p className="border-t border-dashed border-white/20 pt-4 text-xs font-semibold uppercase tracking-wide text-white/55">
-                {after.leasingLabel}
+                {study.afterLeasing}
               </p>
             </div>
             <p className="mt-2 flex items-baseline justify-between gap-3 text-sm lg:col-start-2 lg:row-start-7 lg:mt-0 lg:px-6 lg:pt-2">
-              <span className="whitespace-nowrap">Leasing cost</span>
-              <span className="shrink-0 whitespace-nowrap font-semibold">{sgd(-after.leasingCost)} / yr</span>
+              <span>{study.leasingCost}</span>
+              <span className="shrink-0 whitespace-nowrap font-semibold">{sgd(-after.leasingCost)} {study.perYear}</span>
             </p>
-            <p className="mt-1 text-xs text-white/65 lg:col-start-2 lg:row-start-8 lg:mt-0 lg:px-6 lg:pt-1 lg:pb-6">{after.leasingNote}</p>
+            <p className="mt-1 text-xs text-white/65 lg:col-start-2 lg:row-start-8 lg:mt-0 lg:px-6 lg:pt-1 lg:pb-6">{study.leasingNote}</p>
             <div className="lg:col-start-2 lg:row-start-9 lg:px-6 lg:pb-6">
               <p className="mt-3 rounded-2xl bg-white/10 px-3 py-2 text-sm font-semibold text-[#b6f3d4] lg:mt-0">
-                Save {sgd(after.savePerYear)} / yr ({after.cheaperPct}% cheaper than a traditional agent)
+                {study.save}
               </p>
               <dl className="mt-4">
-                <MoneyRow tone="dark" label="Running costs" value={`${sgd(-after.runningCosts)} / mo`} note={after.runningNote} valueClassName="text-[#ffb4b4]" />
-                <MoneyRow tone="dark" label="Net monthly income" value={`${sgd(after.netMonthly)} / mo`} valueClassName="text-[#8ef0c0]" />
-                <MoneyRow tone="dark" label="Setup cost (1-off)" value={sgd(after.setup)} note={after.setupNote} />
-                <MoneyRow tone="dark" label="Payback period" value={`~${after.paybackMonths} months`} />
-                <MoneyRow tone="dark" label="Annual net uplift" value={`+${sgd(after.annualNetUplift)} / yr`} valueClassName="text-[#8ef0c0]" />
+                <MoneyRow tone="dark" label={study.runningCosts} value={`${sgd(-after.runningCosts)} ${study.perMonth}`} note={study.runningNote} valueClassName="text-[#ffb4b4]" />
+                <MoneyRow tone="dark" label={study.netMonthly} value={`${sgd(after.netMonthly)} ${study.perMonth}`} valueClassName="text-[#8ef0c0]" />
+                <MoneyRow tone="dark" label={study.setup} value={sgd(after.setup)} note={study.setupNote} />
+                <MoneyRow tone="dark" label={study.payback} value={study.paybackValue} />
+                <MoneyRow tone="dark" label={study.annualNetUplift} value={`+${sgd(after.annualNetUplift)} ${study.perYear}`} valueClassName="text-[#8ef0c0]" />
               </dl>
             </div>
           </article>
@@ -309,98 +277,62 @@ function MoneyRow({
   );
 }
 
-const features = [
-  {
-    icon: Bot,
-    title: "AI Property Agent",
-    body: `Syndication and verified viewings at ${sgd(VIEWING_CREDIT_SGD)} each. You pay when a pre-qualified viewing is arranged.`,
-  },
-  {
-    icon: MessageCircle,
-    title: "24/7 WhatsApp concierge",
-    body: "Tenant questions, work orders, and viewing chats. Take over the thread whenever you want it.",
-  },
-  {
-    icon: Receipt,
-    title: "Rent collection",
-    body: "Monthly invoices with PayNow and GIRO tracking, and a ledger on every room.",
-  },
-  {
-    icon: BadgeCheck,
-    title: "Tenancy and onboarding",
-    body: `Digital agreements and a minimum stay of ${MIN_STAY_MONTHS} months. Work passes are verified before keys are released.`,
-  },
-  {
-    icon: Wrench,
-    title: "Vendor dispatch",
-    body: "Aircon, plumbing, and cleaning triaged onto your vendor list, with the timeline kept on the room.",
-  },
-  {
-    icon: CalendarClock,
-    title: "Portfolio monitor",
-    body: "Occupancy, master lease, and sublease spread for every unit, without a weekend spreadsheet.",
-  },
-];
-
-export function Features({ audience }: { audience: "operators" | "landlords" }) {
+export function Features({
+  audience,
+  copy,
+}: {
+  audience: Audience;
+  copy: MarketingMessages;
+}) {
   return (
     <section id={audience === "operators" ? "product" : "operations"} className="scroll-mt-24 bg-white py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-3xl">
-          <SectionLabel>AI operations</SectionLabel>
+          <SectionLabel>{copy.features.label}</SectionLabel>
           <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-            {audience === "landlords"
-              ? "Everything coliving landlords spend the week doing, automated."
-              : "Everything coliving operators spend the week doing, automated."}
+            {audience === "landlords" ? copy.features.landlordsTitle : copy.features.operatorsTitle}
           </h2>
         </div>
         <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <li key={feature.title} className="rounded-3xl border border-line bg-white p-5 shadow-[0_1px_0_rgba(27,20,48,0.03)]">
-              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-soft text-primary">
-                <feature.icon className="h-5 w-5" />
-              </span>
-              <h3 className="mt-4 font-heading text-lg font-bold">{feature.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-ink/70">{feature.body}</p>
-            </li>
-          ))}
+          {copy.features.items.map((feature, index) => {
+            const Icon = featureIcons[index];
+            return (
+              <li key={feature.title} className="rounded-3xl border border-line bg-white p-5 shadow-[0_1px_0_rgba(27,20,48,0.03)]">
+                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-soft text-primary">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 font-heading text-lg font-bold">{feature.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-ink/70">{feature.body}</p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
   );
 }
 
-export function AgentBand() {
+export function AgentBand({ copy }: { copy: MarketingMessages }) {
   return (
     <section id="how-it-works" className="scroll-mt-24 bg-white pb-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid items-center gap-8 rounded-[32px] bg-[linear-gradient(160deg,#2c124c,#14091f)] px-6 py-10 text-white md:grid-cols-2 md:px-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#c9b0ea]">AI Property Agent</p>
-            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Fill vacant rooms 3× faster with our AI Property Agent.
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-white/75">
-              The agent lists rooms and arranges verified viewings. Basic charges {sgd(VIEWING_CREDIT_SGD)} when a
-              viewing is booked. Premium includes {PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} credits per room per year,
-              then the same {sgd(VIEWING_CREDIT_SGD)} rate.
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#c9b0ea]">{copy.agent.eyebrow}</p>
+            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.agent.title}</h2>
+            <p className="mt-4 text-sm leading-7 text-white/75">{copy.agent.body}</p>
             <Button className="mt-6 bg-white text-ink hover:bg-white/90" asChild>
               <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon />
-                Enquire via WhatsApp
+                {copy.agent.cta}
               </a>
             </Button>
           </div>
           <dl className="grid gap-3">
-            {[
-              ["S$50", "Per verified viewing. Not a monthly portal retainer."],
-              ["5 credits", "Included per room, per year, on Premium."],
-              [`${MIN_STAY_MONTHS} months`, "Minimum stay on every tenancy. Passes checked before move-in."],
-            ].map(([title, body]) => (
-              <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <dt className="font-heading text-2xl font-bold text-[#b6f3d4]">{title}</dt>
-                <dd className="mt-1 text-sm text-white/70">{body}</dd>
+            {copy.agent.facts.map((fact) => (
+              <div key={fact.title} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <dt className="font-heading text-2xl font-bold text-[#b6f3d4]">{fact.title}</dt>
+                <dd className="mt-1 text-sm text-white/70">{fact.body}</dd>
               </div>
             ))}
           </dl>
@@ -410,27 +342,23 @@ export function AgentBand() {
   );
 }
 
-export function Comparison() {
+export function Comparison({ copy }: { copy: MarketingMessages }) {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-          Why operators switch to autonomous management
-        </h2>
+        <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.comparison.title}</h2>
         <div className="mt-8 overflow-x-auto rounded-3xl border border-line">
           <table className="w-full min-w-[640px] text-left text-sm">
-            <caption className="sr-only">
-              Traditional coliving operations compared with Koda Coliving.AI
-            </caption>
+            <caption className="sr-only">{copy.comparison.caption}</caption>
             <thead className="bg-[#faf9fc] text-xs uppercase tracking-wide text-ink/50">
               <tr>
-                <th className="px-4 py-3 font-semibold">Work</th>
-                <th className="px-4 py-3 font-semibold">Traditional</th>
-                <th className="px-4 py-3 font-semibold text-primary">Koda Coliving.AI</th>
+                <th className="px-4 py-3 font-semibold">{copy.comparison.work}</th>
+                <th className="px-4 py-3 font-semibold">{copy.comparison.traditional}</th>
+                <th className="px-4 py-3 font-semibold text-primary">{copy.comparison.koda}</th>
               </tr>
             </thead>
             <tbody>
-              {comparisonRows.map((row) => (
+              {copy.comparison.rows.map((row) => (
                 <tr key={row.work} className="border-t border-line">
                   <th className="px-4 py-4 font-heading font-semibold">{row.work}</th>
                   <td className="px-4 py-4 text-ink/70">{row.traditional}</td>
@@ -447,15 +375,17 @@ export function Comparison() {
 
 export function Faq({
   items,
+  title,
   id = "faq",
 }: {
-  items: FaqItem[];
+  items: { question: string; answer: string }[];
+  title: string;
   id?: string;
 }) {
   return (
     <section id={id} className="scroll-mt-24 bg-[#f7f6fb] py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 className="font-heading text-3xl font-bold tracking-tight">Frequently asked questions</h2>
+        <h2 className="font-heading text-3xl font-bold tracking-tight">{title}</h2>
         <div className="mt-6 divide-y divide-line rounded-3xl border border-line bg-white">
           {items.map((item) => (
             <details key={item.question} className="group px-5 py-4">
@@ -472,34 +402,36 @@ export function Faq({
   );
 }
 
-export function CtaBand({ audience }: { audience: "operators" | "landlords" }) {
+export function CtaBand({
+  audience,
+  copy,
+}: {
+  audience: Audience;
+  copy: MarketingMessages;
+}) {
   const landlord = audience === "landlords";
   return (
     <section className="bg-white pb-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="rounded-[32px] bg-[linear-gradient(160deg,#4a2270,#1a0d2c)] px-6 py-14 text-center text-white sm:px-10">
           <h2 className="mx-auto max-w-3xl font-heading text-3xl font-bold tracking-tight sm:text-5xl">
-            {landlord
-              ? "Ready to see what coliving could earn from your property?"
-              : "Automate your entire coliving fleet today."}
+            {landlord ? copy.cta.landlordsTitle : copy.cta.operatorsTitle}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/75">
-            {landlord
-              ? "Bring a floor plan. We’ll map fit-out, room rents, and the handoff to operations."
-              : "Start with the rooms you already run. Basic is S$15 per room per month, billed annually."}
+            {landlord ? copy.cta.landlordsBody : copy.cta.operatorsBody}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <BookConsultation size="lg" variant="default">
-              {landlord ? "Book Free Unit Audit" : "Book Consultation"}
+            <BookConsultation size="lg" variant="default" copy={copy.consultation}>
+              {landlord ? copy.cta.landlordsPrimary : copy.cta.operatorsPrimary}
             </BookConsultation>
             <Button variant="light" size="lg" asChild>
               {landlord ? (
                 <a href="#calculator">
-                  Calculate yield <ArrowRight className="h-4 w-4" />
+                  {copy.cta.landlordsSecondary} <ArrowRight className="h-4 w-4" />
                 </a>
               ) : (
                 <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon /> Enquire via WhatsApp
+                  <WhatsAppIcon /> {copy.cta.operatorsSecondary}
                 </a>
               )}
             </Button>
@@ -519,40 +451,43 @@ export function JsonLd({ data }: { data: unknown }) {
   );
 }
 
-export function operatorJsonLd() {
+export function operatorJsonLd(locale: Locale) {
+  const copy = getMessages(locale);
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Koda Coliving.AI",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    description: siteConfig.description,
+    description: copy.meta.operators.description,
     areaServed: "SG",
+    inLanguage: locale === "zh-Hans" ? "zh-Hans" : "en",
     offers: {
       "@type": "Offer",
       price: "15",
       priceCurrency: "SGD",
-      description: "Basic plan per room per month, billed annually",
+      description: copy.jsonLd.offerDescription,
     },
-    url: siteConfig.url,
+    url: absoluteUrl(audiencePath(locale, "operators")),
   };
 }
 
-export function landlordJsonLd(faqs: FaqItem[]) {
+export function landlordJsonLd(locale: Locale) {
+  const copy = getMessages(locale);
   return [
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      name: "Turnkey coliving conversion and AI operations",
+      name: copy.jsonLd.serviceName,
       provider: { "@type": "Organization", name: "Koda Coliving.AI", url: siteConfig.url },
       areaServed: "Singapore",
-      description:
-        "Architectural conversion, fit-out from S$15,000, and autonomous tenant operations for Singapore landlords.",
+      inLanguage: locale === "zh-Hans" ? "zh-Hans" : "en",
+      description: copy.jsonLd.serviceDescription,
     },
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
+      mainEntity: copy.faq.landlords.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: { "@type": "Answer", text: faq.answer },

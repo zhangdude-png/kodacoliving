@@ -1,23 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Montserrat, Noto_Sans_SC } from "next/font/google";
 import { siteConfig } from "@/lib/site";
-import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+import "../globals.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const notoSansSC = Noto_Sans_SC({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-noto-sc",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Koda Coliving.AI — Autonomous coliving operations",
+    default: "Koda Coliving.AI — 自主合租运营",
     template: "%s · Koda Coliving.AI",
   },
   description: siteConfig.description,
@@ -25,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    locale: "en_SG",
+    locale: "zh_Hans_SG",
   },
   twitter: {
     card: "summary_large_image",
@@ -38,13 +41,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ChineseLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable} h-full`}>
+    <html lang="zh-Hans" className={`${montserrat.variable} ${notoSansSC.variable} h-full`}>
       <body className="min-h-full bg-white text-ink antialiased">{children}</body>
     </html>
   );
