@@ -6,6 +6,7 @@ const tones = {
   good: "bg-[#e7f6ee] text-good",
   bad: "bg-[#fdecec] text-bad",
   purple: "bg-soft text-primary",
+  teal: "bg-[#e5f4f3] text-secondary-text",
   warn: "bg-[#fff6e5] text-tertiary",
   dark: "bg-white/10 text-white",
 };

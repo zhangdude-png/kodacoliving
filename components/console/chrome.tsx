@@ -38,7 +38,7 @@ export function ConsoleChrome({ children }: { children: ReactNode }) {
         )}
       >
         <div className="flex items-center justify-between px-2">
-          <Logo href="/app" subline="Global ops" />
+          <Logo href="/app" className="h-10" />
           <button type="button" className="lg:hidden" aria-label="Close menu" onClick={() => setOpen(false)}>
             <X className="h-5 w-5" />
           </button>
