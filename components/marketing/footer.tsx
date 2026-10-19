@@ -19,6 +19,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
           <h2 className="text-sm font-semibold">{copy.footer.product}</h2>
           <ul className="mt-3 grid gap-2 text-sm text-secondary [&_a]:hover:text-white">
             <li><Link href={`${home}#pricing`}>{copy.footer.pricing}</Link></li>
+            <li><Link href={`${home}#how-it-works`}>{copy.footer.howItWorks}</Link></li>
             <li><Link href={`${home}#calculator`}>{copy.footer.fleetCalculator}</Link></li>
             <li><Link href="/app">{copy.footer.console}</Link></li>
           </ul>
@@ -29,6 +30,8 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
             <li><Link href={landlords}>{copy.footer.forLandlords}</Link></li>
             <li><Link href={`${landlords}#case-study`}>{copy.footer.caseStudy}</Link></li>
             <li><Link href={`${landlords}#calculator`}>{copy.footer.yieldCalculator}</Link></li>
+            <li><Link href={`${landlords}#operations`}>{copy.footer.aiOperations}</Link></li>
+            <li><Link href={`${landlords}#faq`}>{copy.footer.landlordFaq}</Link></li>
           </ul>
         </div>
         <div>

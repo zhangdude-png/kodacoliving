@@ -1,8 +1,8 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { Check, ChevronDown, Globe, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Logo } from "@/components/logo";
 import { BookConsultation } from "@/components/marketing/consultation-dialog";
 import { audiencePath, type Audience, type Locale } from "@/lib/i18n";
@@ -10,8 +10,8 @@ import { persistAudience, persistLocale } from "@/lib/preferences";
 import { getMessages, type MarketingMessages } from "@/messages";
 import { cn } from "@/lib/utils";
 
-const operatorHashes = ["#product", "#how-it-works", "#pricing", "#faq", "/app"];
-const landlordHashes = ["#fit-out", "#case-study", "#calculator", "#operations", "#faq"];
+const operatorHashes = ["#product", "#pricing", "#faq"];
+const landlordHashes = ["#fit-out", "#case-study", "#calculator"];
 
 export function SiteHeader({
   audience,
@@ -34,7 +34,7 @@ export function SiteHeader({
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex min-h-16 items-center justify-between gap-3">
           <Logo href={audiencePath(locale, "operators")} className="h-11" />
-          <nav className="hidden items-center gap-5 xl:flex" aria-label={copy.header.primary}>
+          <nav className="hidden items-center gap-5 lg:flex" aria-label={copy.header.primary}>
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -45,39 +45,28 @@ export function SiteHeader({
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-2 md:flex">
-              <AudienceSwitch locale={locale} audience={audience} copy={copy} />
-              {showLanguageSwitch ? <LanguageSwitch locale={locale} audience={audience} copy={copy} /> : null}
-            </div>
-            <div className="hidden lg:block">
-              <BookConsultation copy={copy.consultation}>{copy.header.book}</BookConsultation>
-            </div>
-            <button
-              type="button"
-              className="grid h-10 w-10 place-items-center rounded-xl border border-line xl:hidden"
-              aria-expanded={open}
-              aria-label={open ? copy.header.closeMenu : copy.header.openMenu}
-              onClick={() => setOpen((value) => !value)}
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+          <div className="ml-auto hidden items-center gap-2 lg:flex">
+            <AudienceLink locale={locale} audience={audience} copy={copy} />
+            {showLanguageSwitch ? (
+              <LanguageMenu locale={locale} audience={audience} copy={copy} />
+            ) : null}
+            <BookConsultation copy={copy.consultation}>{copy.header.book}</BookConsultation>
           </div>
-        </div>
-        <div className="flex items-center gap-2 pb-3 md:hidden">
-          <AudienceSwitch locale={locale} audience={audience} copy={copy} className="min-w-0 flex-1" />
-          {showLanguageSwitch ? <LanguageSwitch locale={locale} audience={audience} copy={copy} compact /> : null}
+          <button
+            type="button"
+            className="ml-auto grid h-10 w-10 place-items-center rounded-xl border border-line lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? copy.header.closeMenu : copy.header.openMenu}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
       {open ? (
-        <div className="border-t border-line bg-white px-4 py-4 xl:hidden">
-          <div className="grid gap-3">
-            <AudienceSwitch locale={locale} audience={audience} copy={copy} />
-            {showLanguageSwitch ? (
-              <LanguageSwitch locale={locale} audience={audience} copy={copy} />
-            ) : null}
-          </div>
-          <nav className="mt-3 grid gap-1" aria-label={copy.header.mobile}>
+        <div id="mobile-menu" className="border-t border-line bg-white px-4 py-4 lg:hidden">
+          <nav className="grid gap-1" aria-label={copy.header.mobile}>
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -88,113 +77,194 @@ export function SiteHeader({
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2 lg:hidden">
+          </nav>
+          <div className="mt-3 grid gap-2">
+            <AudienceLink
+              locale={locale}
+              audience={audience}
+              copy={copy}
+              className="w-full justify-center"
+              onNavigate={() => setOpen(false)}
+            />
+            {showLanguageSwitch ? (
+              <LanguageMenu locale={locale} audience={audience} copy={copy} onNavigate={() => setOpen(false)} />
+            ) : null}
+            <div className="[&_button]:w-full">
               <BookConsultation copy={copy.consultation}>{copy.header.book}</BookConsultation>
             </div>
-          </nav>
+          </div>
         </div>
       ) : null}
     </header>
   );
 }
 
-function AudienceSwitch({
+function AudienceLink({
   locale,
   audience,
   copy,
   className,
+  onNavigate,
 }: {
   locale: Locale;
   audience: Audience;
   copy: MarketingMessages;
   className?: string;
+  onNavigate?: () => void;
 }) {
-  return (
-    <div
-      role="group"
-      aria-label={copy.header.audienceLabel}
-      className={cn("inline-flex rounded-full border border-line bg-soft p-0.5 text-[13px] font-semibold", className)}
-    >
-      <SwitchLink
-        href={audiencePath(locale, "operators")}
-        active={audience === "operators"}
-        onClick={() => persistAudience("operator")}
-      >
-        {copy.header.operators}
-      </SwitchLink>
-      <SwitchLink
-        href={audiencePath(locale, "landlords")}
-        active={audience === "landlords"}
-        onClick={() => persistAudience("landlord")}
-      >
-        {copy.header.landlords}
-      </SwitchLink>
-    </div>
-  );
-}
-
-function LanguageSwitch({
-  locale,
-  audience,
-  copy,
-  compact = false,
-  className,
-}: {
-  locale: Locale;
-  audience: Audience;
-  copy: MarketingMessages;
-  compact?: boolean;
-  className?: string;
-}) {
-  return (
-    <div
-      role="group"
-      aria-label={copy.header.languageLabel}
-      className={cn("inline-flex rounded-full border border-line bg-white p-0.5 text-[13px] font-semibold", className)}
-    >
-      <SwitchLink
-        href={audiencePath("en", audience)}
-        active={locale === "en"}
-        onClick={() => persistLocale("en")}
-      >
-        {copy.header.english}
-      </SwitchLink>
-      <SwitchLink
-        href={audiencePath("zh-Hans", audience)}
-        active={locale === "zh-Hans"}
-        onClick={() => persistLocale("zh-Hans")}
-      >
-        <span className={compact ? "sm:hidden" : "hidden"}>{copy.header.chineseShort}</span>
-        <span className={compact ? "hidden sm:inline" : "inline"}>{copy.header.chinese}</span>
-      </SwitchLink>
-    </div>
-  );
-}
-
-function SwitchLink({
-  href,
-  active,
-  onClick,
-  children,
-}: {
-  href: string;
-  active: boolean;
-  onClick: () => void;
-  children: ReactNode;
-}) {
+  const toLandlords = audience === "operators";
   return (
     <Link
-      href={href}
-      hrefLang={href.startsWith("/zh") ? "zh-Hans" : "en"}
-      aria-current={active ? "page" : undefined}
-      onClick={onClick}
+      href={audiencePath(locale, toLandlords ? "landlords" : "operators")}
+      onClick={() => {
+        persistAudience(toLandlords ? "landlord" : "operator");
+        onNavigate?.();
+      }}
       className={cn(
-        "inline-flex min-h-10 flex-1 items-center justify-center rounded-full px-3 py-1.5 text-center transition",
-        active ? "bg-secondary-strong text-white shadow-sm" : "text-ink/70 hover:bg-white hover:text-ink",
+        "inline-flex h-9 items-center rounded-full border border-line px-3 text-[13px] font-medium text-ink/70 hover:bg-muted hover:text-ink",
+        className,
       )}
     >
-      {children}
+      {toLandlords ? copy.header.forLandlords : copy.header.forOperators}
     </Link>
+  );
+}
+
+const languageOptions = [
+  { locale: "en" as const, nameKey: "languageEnglish" as const },
+  { locale: "zh-Hans" as const, nameKey: "chinese" as const },
+];
+
+function LanguageMenu({
+  locale,
+  audience,
+  copy,
+  onNavigate,
+}: {
+  locale: Locale;
+  audience: Audience;
+  copy: MarketingMessages;
+  onNavigate?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const itemsRef = useRef<Array<HTMLAnchorElement | null>>([]);
+  const menuId = useId();
+  const currentIndex = languageOptions.findIndex((option) => option.locale === locale);
+  const code = locale === "zh-Hans" ? copy.header.chineseShort : copy.header.english;
+  const currentName = copy.header[languageOptions[currentIndex]?.nameKey ?? "languageEnglish"];
+
+  useEffect(() => {
+    if (!open) return;
+    const index = currentIndex >= 0 ? currentIndex : 0;
+    itemsRef.current[index]?.focus();
+    function onPointerDown(event: PointerEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+    }
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, currentIndex]);
+
+  function move(next: number) {
+    const count = languageOptions.length;
+    const index = (next + count) % count;
+    itemsRef.current[index]?.focus();
+  }
+
+  return (
+    <div ref={rootRef} className="relative w-fit">
+      <button
+        ref={buttonRef}
+        type="button"
+        className="inline-flex h-9 items-center gap-1.5 rounded-full px-2.5 text-[13px] font-medium text-ink/70 hover:bg-muted hover:text-ink"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls={menuId}
+        aria-label={`${copy.header.languageLabel}, ${currentName}`}
+        onClick={() => setOpen((value) => !value)}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
+      >
+        <Globe className="h-4 w-4" aria-hidden="true" />
+        <span>{code}</span>
+        <ChevronDown className={cn("h-3.5 w-3.5 transition", open && "rotate-180")} aria-hidden="true" />
+      </button>
+      {open ? (
+        <div
+          id={menuId}
+          role="menu"
+          aria-label={copy.header.languageLabel}
+          className="absolute right-0 z-50 mt-2 w-44 rounded-xl border border-line bg-white p-1 shadow-lg"
+          onKeyDown={(event) => {
+            const index = itemsRef.current.findIndex((item) => item === document.activeElement);
+            if (event.key === "ArrowDown") {
+              event.preventDefault();
+              move(index + 1);
+            } else if (event.key === "ArrowUp") {
+              event.preventDefault();
+              move(index - 1);
+            } else if (event.key === "Home") {
+              event.preventDefault();
+              move(0);
+            } else if (event.key === "End") {
+              event.preventDefault();
+              move(languageOptions.length - 1);
+            } else if (event.key === "Tab") {
+              setOpen(false);
+            }
+          }}
+        >
+          {languageOptions.map((option, index) => {
+            const selected = option.locale === locale;
+            const label = copy.header[option.nameKey];
+            return (
+              <Link
+                key={option.locale}
+                ref={(node) => {
+                  itemsRef.current[index] = node;
+                }}
+                href={audiencePath(option.locale, audience)}
+                role="menuitemradio"
+                aria-checked={selected}
+                hrefLang={option.locale}
+                lang={option.locale === "zh-Hans" ? "zh-Hans" : "en"}
+                tabIndex={-1}
+                className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm text-ink hover:bg-muted focus:bg-muted focus:outline-none"
+                onClick={() => {
+                  persistLocale(option.locale);
+                  setOpen(false);
+                  onNavigate?.();
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === " ") {
+                    event.preventDefault();
+                    event.currentTarget.click();
+                  }
+                }}
+              >
+                <span>{label}</span>
+                {selected ? <Check className="h-4 w-4 text-secondary-text" aria-hidden="true" /> : <span className="h-4 w-4" />}
+              </Link>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
