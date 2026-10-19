@@ -18,29 +18,34 @@ const perYr = "/ yr";
 
 /**
  * Simplified Chinese for Singapore landlords and operators.
- * coliving = 合租, landlord = 房东, viewing = 看房, tenant = 租客.
+ * Coliving as a category is 共居 (共居运营商, 共居模式). Formal and SEO
+ * descriptions use 共享居住空间. 合租 is only for tenants sharing one flat.
+ * Turnkey fit-out is 一站式装修; the move-in-ready benefit is 拎包入住.
+ * Unit audit is 单位勘察评估. Viewing credit is 看房次数, and 预付看房次数
+ * in pricing tables. Sublease is 转租; letting rooms separately is 分房出租.
+ * Keep 主租约, 无钥匙电子门锁, 房东, 租客, 看房, and 租金回报率.
  * Koda Coliving.AI and Koda AI Property Agent stay in English.
  * Currency figures stay in the S$ / mo form used on the English page.
  */
 export const zhHans = {
   meta: {
     operators: {
-      title: "Koda Coliving.AI — 自主运营 5 至 100 间合租房间",
+      title: "Koda Coliving.AI — 自主运营 5 至 100 间共享居住空间",
       description:
-        "面向新加坡合租运营商的代理式 AI。WhatsApp 租客服务、S$50 的已核实看房、收租与供应商调度。基础版为每间房每月 S$15。",
-      ogDescription: "一支自主团队，处理新加坡合租房源组合的 WhatsApp、看房、收租与维修。",
+        "面向新加坡共享居住空间运营商的代理式 AI。WhatsApp 租客服务、S$50 的已核实看房、收租与供应商调度。基础版为每间房每月 S$15。",
+      ogDescription: "一支自主团队，处理新加坡共享居住空间房源组合的 WhatsApp、看房、收租与维修。",
     },
     landlords: {
-      title: "新加坡房东的交钥匙合租 · Koda Coliving.AI",
+      title: "新加坡房东的一站式共享居住空间 · Koda Coliving.AI",
       description:
-        "把新加坡出租单位改成合租。交钥匙装修 S$15,000 起，并提供自主运营。St Francis Court：净收益提升 +72%，不到 4 周全部租出。",
+        "把新加坡出租单位改成共享居住空间。一站式装修 S$15,000 起，拎包入住，并提供自主运营。St Francis Court：净收益提升 +72%，不到 4 周全部租出。",
       ogDescription: "装修 S$15,000 起，加上 AI 租客运营。St Francis Court 案例：年度净收益提升 +S$45,009。",
     },
   },
   jsonLd: {
     offerDescription: "基础版按年计费，每间房每月",
-    serviceName: "交钥匙合租改造与 AI 运营",
-    serviceDescription: "面向新加坡房东的建筑改造、S$15,000 起的装修，以及自主租客运营。",
+    serviceName: "一站式共享居住空间改造与 AI 运营",
+    serviceDescription: "面向新加坡房东的建筑改造、S$15,000 起的一站式装修与拎包入住，以及自主租客运营。",
   },
   skip: "跳到正文",
   logoSubline: "自主运营",
@@ -58,20 +63,20 @@ export const zhHans = {
     openMenu: "打开菜单",
     closeMenu: "关闭菜单",
     operatorNav: ["产品", "如何运作", "价格", "常见问题", "控制台"],
-    landlordNav: ["交钥匙装修", "案例", "收益计算器", "AI 运营", "房东常见问题"],
+    landlordNav: ["一站式装修", "案例", "收益计算器", "AI 运营", "房东常见问题"],
   },
   announcement: {
     badge: "面向房产房东",
-    body: "交钥匙合租改造与装修（S$15,000 起）+ 覆盖新加坡的全自主 AI 租客运营。",
+    body: "一站式共居改造与装修（S$15,000 起，拎包入住）+ 覆盖新加坡的全自主 AI 租客运营。",
     cta: "计算您的租金收益提升 →",
   },
   audience: {
     title: "哪一项最符合您？",
     description: "选择一个视角。之后可随时在页眉切换。",
     close: "关闭",
-    operatorTitle: "合租运营商",
-    operatorBody: "我经营合租房间，希望用 AI 来管理",
-    landlordTitle: "房东 / 业主",
+    operatorTitle: "共居运营商",
+    operatorBody: "我经营共居房间，希望用 AI 来管理",
+    landlordTitle: "房东／业主",
     landlordBody: "我拥有房产，希望提高租金收益",
   },
   suggest: {
@@ -81,31 +86,31 @@ export const zhHans = {
   },
   hero: {
     operators: {
-      eyebrow: "新加坡合租房源组合的自主运营",
-      title: "用一支自主 AI 团队，运营 5 至 100 间合租房间。",
+      eyebrow: "新加坡共居房源组合的自主运营",
+      title: "用一支自主 AI 团队，运营 5 至 100 间共居房间。",
       body: "WhatsApp 租客服务、已核实看房、租约入住、收租与供应商调度——由 AI 代理执行，需要时您可随时接管对话。",
       chips: ["5 至 100 间房", "按房间计价", "可接管任何对话"],
       primary: "预约咨询",
       secondary: "查看价格",
     },
     landlords: {
-      eyebrow: "新加坡房东的一站式交钥匙伙伴 · 装修配置 S$15,000 起",
-      title: "以交钥匙合租与 AI 管理，提升您的租金收益。",
-      body: "Koda Coliving 是您的端到端伙伴。从整体建筑改造、承包商装修与软装（S$15,000 起），到自主的 AI 租客与物业管理。",
-      chips: ["装修配置 S$15,000 起", "+72% 净收益提升（St Francis）", "房东零日常管理负担"],
-      primary: "预约免费单位评估",
+      eyebrow: "新加坡房东的一站式装修伙伴 · 拎包入住 · 装修配置 S$15,000 起",
+      title: "以一站式共居与 AI 管理，提升您的租金收益。",
+      body: "Koda Coliving 是您的端到端伙伴。从整体建筑改造、一站式装修与软装（S$15,000 起，拎包入住），到自主的 AI 租客与物业管理。",
+      chips: ["一站式装修 S$15,000 起", "+72% 净收益提升（St Francis）", "房东零日常管理负担"],
+      primary: "预约免费单位勘察评估",
       secondary: "St Francis 案例",
       previewNote: "产品预览使用演示房间 CR1，租金为 S$1,650。已发布的 St Francis 租金见案例。",
     },
   },
   process: {
-    label: "交钥匙装修",
-    title: "从整套出租到合租住宅。",
+    label: "一站式装修",
+    title: "从整套出租到共居住宅。",
     body: "您确认方案与装修。移交之后，由团队运营各房间。",
     steps: [
-      { title: "单位评估", body: "户型图、现有租约，以及逐间租金地图。评估免费。" },
+      { title: "单位勘察评估", body: "户型图、现有租约，以及逐间租金地图。评估免费。" },
       {
-        title: "交钥匙装修",
+        title: "一站式装修",
         body: `建筑改造、承包商装修与软装。项目从 ${sgd(FIT_OUT_FROM_SGD)} 起。`,
       },
       { title: "布置并上架", body: "房间完成软装与拍摄后，交给 Koda AI Property Agent。" },
@@ -118,12 +123,12 @@ export const zhHans = {
   caseStudy: {
     label: "房东真实收益案例",
     name: stFrancis.name,
-    subtitle: "Koda Coliving 如何把整套出租改造成 7 间房的合租住宅，并在不到 4 周内全部租出。",
+    subtitle: "Koda Coliving 如何把整套出租改造成 7 间房的共居住宅，并在不到 4 周内全部租出。",
     rooms: [
       {
         title: "主人房（MBR1）",
         price: stFrancis.rooms[0].price,
-        body: "独立套间浴室、特大床布局、隔音石膏板墙、工作台。",
+        body: "独立套间浴室、特大床布局、隔音石膏板隔墙、工作台。",
         imageAlt: "St Francis Court 主人房，可见特大床、套间门与工作桌",
       },
       {
@@ -146,9 +151,9 @@ export const zhHans = {
     beforeLeasing: "租赁 · 传统中介",
     agentFee: "中介费",
     agentFeeNote: "两年租约收取一个月租金",
-    afterKicker: "Koda 交钥匙改造后",
+    afterKicker: "Koda 一站式改造后",
     afterBadge: "+72% 净收益提升",
-    afterTitle: "Koda 交钥匙合租（7 间房）",
+    afterTitle: "Koda 一站式共居（7 间房）",
     afterSummary: "改为一间主人房与六间普通房",
     afterLeasing: "租赁 · Koda AI Property Agent",
     leasingCost: "租赁成本",
@@ -169,8 +174,8 @@ export const zhHans = {
   },
   features: {
     label: "AI 运营",
-    operatorsTitle: "合租运营商一周里要做的事，交给系统完成。",
-    landlordsTitle: "合租房东一周里要做的事，交给系统完成。",
+    operatorsTitle: "共居运营商一周里要做的事，交给系统完成。",
+    landlordsTitle: "共居房东一周里要做的事，交给系统完成。",
     items: [
       {
         title: "Koda AI Property Agent",
@@ -194,19 +199,19 @@ export const zhHans = {
       },
       {
         title: "房源组合监测",
-        body: "每个单位的入住率、主租约与分租差额，不必再靠周末表格。",
+        body: "每个单位的入住率、主租约与转租差额，不必再靠周末表格。",
       },
     ],
   },
   agent: {
     eyebrow: "Koda AI Property Agent",
     title: "用 Koda AI Property Agent，把空置房间的成交速度提高至 3 倍。",
-    body: `代理负责上架房间并安排已核实看房。基础版在看房预约成功时收取 ${sgd(VIEWING_CREDIT_SGD)}。高级版每间房每年包含 ${PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} 次额度，之后仍按 ${sgd(VIEWING_CREDIT_SGD)} 计。`,
+    body: `代理负责上架房间并安排已核实看房。基础版在看房预约成功时收取 ${sgd(VIEWING_CREDIT_SGD)}。高级版每间房每年包含 ${PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} 次看房次数，用完后仍按 ${sgd(VIEWING_CREDIT_SGD)} 计。`,
     cta: "通过 WhatsApp 咨询",
     facts: [
       { title: sgd(VIEWING_CREDIT_SGD), body: "每次已核实看房。不是按月的平台月费。" },
       {
-        title: `${PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} 次额度`,
+        title: `${PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} 次看房次数`,
         body: "高级版每间房每年包含。",
       },
       {
@@ -217,7 +222,7 @@ export const zhHans = {
   },
   comparison: {
     title: "为什么运营商改用自主管理",
-    caption: "传统合租运营与 Koda Coliving.AI 的对比",
+    caption: "传统共居运营与 Koda Coliving.AI 的对比",
     work: "工作",
     traditional: "传统方式",
     koda: "Koda Coliving.AI",
@@ -225,7 +230,7 @@ export const zhHans = {
       {
         work: "招租",
         traditional: "往往每份租约向中介支付约一个月租金。",
-        koda: `每次已核实看房 ${sgd(VIEWING_CREDIT_SGD)}。高级版每间房每年包含 5 次额度。`,
+        koda: `每次已核实看房 ${sgd(VIEWING_CREDIT_SGD)}。高级版每间房每年包含 5 次看房次数。`,
       },
       {
         work: "租客消息",
@@ -245,7 +250,7 @@ export const zhHans = {
       {
         work: "报表",
         traditional: "要有人更新的表格。",
-        koda: "入住率、主租约与分租，集中在一个控制台。",
+        koda: "入住率、主租约与转租，集中在一个控制台。",
       },
       {
         work: "软件价格",
@@ -259,20 +264,20 @@ export const zhHans = {
     operators: [
       {
         question: "运营商产品适合谁？",
-        answer: "在新加坡经营约 5 至 100 间房的合租运营商。控制台围绕单位、房间、租约和按房间订阅来设计。",
+        answer: "在新加坡经营约 5 至 100 间房的共居运营商。控制台围绕单位、房间、租约和按房间订阅来设计。",
       },
       {
         question: "价格如何计算？",
         answer:
-          "基础版按年计费为每间房每月 S$15，按月计费为每间房 S$20。高级版目前按每间房每月 S$30 展示，价格待定（候选为 S$25、S$30 或 S$35）。高级版每间房每年包含 5 次看房额度。",
+          "基础版按年计费为每间房每月 S$15，按月计费为每间房 S$20。高级版目前按每间房每月 S$30 展示，价格待定（候选为 S$25、S$30 或 S$35）。高级版每间房每年包含 5 次看房次数。",
       },
       {
-        question: "什么是看房额度？",
-        answer: `一次额度对应一次已核实、预先筛选的租客看房。基础版在安排该次看房时收取 S$${VIEWING_CREDIT_SGD}。高级版额度用完后，额外额度仍为每次 S$${VIEWING_CREDIT_SGD}。`,
+        question: "什么是看房次数？",
+        answer: `一次看房次数对应一次已核实、预先筛选的租客看房。基础版在安排该次看房时收取 S$${VIEWING_CREDIT_SGD}。高级版看房次数用完后，额外看房次数仍为每次 S$${VIEWING_CREDIT_SGD}。`,
       },
       {
         question: "可以继续用我们自己的供应商吗？",
-        answer: "可以。代理会把空调、水管和清洁派给账户上的供应商名单。高级版另含新加坡优先调度网络和一位具名客户总监。",
+        answer: "可以。代理会把空调、水管和清洁派给账户上的供应商名单。高级版另含新加坡优先调度网络和一位指定客户总监。",
       },
       {
         question: "Koda 采用哪些租约规则？",
@@ -285,13 +290,13 @@ export const zhHans = {
     ],
     landlords: [
       {
-        question: "交钥匙装修包含什么？",
-        answer: "建筑改造、承包商装修与软装。项目视单位情况从 S$15,000 起。家具与电器在同一方案中报价。",
+        question: "一站式装修包含什么？",
+        answer: "建筑改造、承包商装修与软装，完成后可拎包入住。项目视单位情况从 S$15,000 起。家具与电器在同一方案中报价。",
       },
       {
         question: "St Francis Court 的情况如何？",
         answer:
-          "90 St Francis Rd 的 #09-02 单位原先整套出租，每月 S$5,200（每年 S$62,400）。改造后成为 7 间房的合租住宅：总租金 S$9,830，运营成本 S$879，每月净收入 S$8,951。设置成本 S$34,513，回本约 9.2 个月，已发布的年度净收益提升为 S$45,009。不到 4 周全部租出。",
+          "90 St Francis Rd 的 #09-02 单位原先整套出租，每月 S$5,200（每年 S$62,400）。改造后成为 7 间房的共居住宅：总租金 S$9,830，运营成本 S$879，每月净收入 S$8,951。设置成本 S$34,513，回本约 9.2 个月，已发布的年度净收益提升为 S$45,009。不到 4 周全部租出。",
       },
       {
         question: "租赁成本与中介相比如何？",
@@ -308,35 +313,35 @@ export const zhHans = {
       },
       {
         question: "如何开始？",
-        answer: "预约一次免费单位评估，或通过 WhatsApp 联系团队。请带上户型图和目前租金。评估会梳理装修、房间租金，以及如何交接给运营。",
+        answer: "预约一次免费单位勘察评估，或通过 WhatsApp 联系团队。请带上户型图和目前租金。评估会梳理装修、房间租金，以及如何交接给运营。",
       },
     ],
   },
   cta: {
-    operatorsTitle: "今天就开始让整个合租房源组合自动运转。",
+    operatorsTitle: "今天就开始让整个共居房源组合自动运转。",
     operatorsBody: "从您已经在运营的房间开始。基础版按年计费，每间房每月 S$15。",
-    landlordsTitle: "想了解合租能为您的房产带来多少收益？",
+    landlordsTitle: "想了解共居能为您的房产带来多少收益？",
     landlordsBody: "带上一份户型图。我们会梳理装修、房间租金，以及如何交接给运营。",
     operatorsPrimary: "预约咨询",
-    landlordsPrimary: "预约免费单位评估",
+    landlordsPrimary: "预约免费单位勘察评估",
     operatorsSecondary: "通过 WhatsApp 咨询",
     landlordsSecondary: "计算收益",
   },
   pricing: {
     eyebrow: "按房间公开计价",
     title: "按房间计价，简单清楚。没有隐藏费用。",
-    subtitle: "从 5 间房的住宅扩展到 100 间房的合租组合。",
+    subtitle: "从 5 间房的住宅扩展到 100 间房的共居组合。",
     annual: "按年 · 节省 25%",
     monthly: "按月",
     coreFleet: "核心房源组合",
-    boutique: "精品规模运营商",
+    boutique: "中小型运营商",
     basicName: "基础版",
-    basicBody: "面向合租经营者的核心自主租客运营，从最初几间房到 100 间房的组合，均按房间计价。",
+    basicBody: "面向共居经营者的核心自主租客运营，从最初几间房到 100 间房的组合，均按房间计价。",
     perRoomMonth: "/ 房间 / 月",
     annualNote: `按年计费（节省 25%）· 或按月 ${sgd(BASIC_MONTHLY_PER_ROOM_SGD)}/房间`,
     monthlyNote: `按月计费 · 若按年支付则为 ${sgd(BASIC_ANNUAL_PER_ROOM_SGD)}/房间`,
     addonTitle: "Koda AI Property Agent 附加项 · 可选",
-    addonBody: `在主要房源平台上自主发布。仅当安排好一次已核实、预先筛选的租客看房时，才产生看房额度（${sgd(VIEWING_CREDIT_SGD)}/次）。`,
+    addonBody: `在主要房源平台上自主发布。仅当安排好一次已核实、预先筛选的租客看房时，才使用预付看房次数（${sgd(VIEWING_CREDIT_SGD)}/次）。`,
     basicFeatures: [
       "全天候 AI WhatsApp 租客管家",
       "自动维修与工单排期",
@@ -351,24 +356,24 @@ export const zhHans = {
     premiumName: "高级版",
     premiumBody: "完整自主套件，含跨平台房源发布，以及无需亲力亲为的租客看房安排。",
     premiumBilled: `按年计费（${sgd(premiumAnnualPerRoom())} / 房间 / 年）。价格待定——候选为 ${PREMIUM_PRICE_CANDIDATES_SGD.map((price) => sgd(price)).join("、")}。`,
-    creditsTitle: `每间房每年包含 ${PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} 次预先筛选的看房额度`,
-    creditsBody: `1 次看房额度 = 1 次直接与运营商安排的预先筛选租客看房。额外充值为每次 ${sgd(VIEWING_CREDIT_SGD)}。`,
+    creditsTitle: `每间房每年包含 ${PREMIUM_VIEWING_CREDITS_PER_ROOM_PER_YEAR} 次预先筛选的预付看房次数`,
+    creditsBody: `1 次预付看房次数 = 1 次直接与运营商安排的预先筛选租客看房。额外充值为每次 ${sgd(VIEWING_CREDIT_SGD)}。`,
     premiumFeatures: [
       "包含基础版的全部内容",
       "Koda AI Property Agent 覆盖新加坡主要房产平台",
       "自动分流咨询并安排看房",
       "新加坡供应商优先调度（空调与水管）",
-      "新加坡专属客户总监与服务标准",
+      "新加坡指定客户总监与服务等级协议（SLA）",
     ],
   },
   calculator: {
     landlord: {
       eyebrow: "收益计算器",
-      title: "计算您的合租改造",
+      title: "计算您的共居改造",
       body: `默认值与已发布的 St Francis 案例一致。修改任何输入即可计算您自己的数字。租赁按每次已核实看房 ${sgd(VIEWING_CREDIT_SGD)}、看房到签约转化率 25% 计算。`,
       currentRent: "目前整套租金（S$ / 月）",
       rooms: "改造后房间数",
-      gross: "合租每月总租金（S$）",
+      gross: "共居每月总租金（S$）",
       running: "每月运营成本（S$）",
       setup: "一次性设置成本（S$）",
       reset: "恢复为 St Francis 数字",
@@ -382,7 +387,7 @@ export const zhHans = {
       saving: "相对传统中介的节省",
       publishedNote: "这些是已发布的案例数字，其中包括年度净收益提升 S$45,009。",
       customNote:
-        "收益提升 = 合租净收入 × 12，减去目前整套的年度总租金。中介费按目前租金的半个月计算（两年租约收取一个月）。看房次数 = 房间数 ÷ 25%。",
+        "收益提升 = 共居净收入 × 12，减去目前整套的年度总租金。中介费按目前租金的半个月计算（两年租约收取一个月）。看房次数 = 房间数 ÷ 25%。",
       months: "个月",
       perMonth: perMo,
       perYear: perYr,
@@ -391,7 +396,7 @@ export const zhHans = {
     fleet: {
       eyebrow: "房源计算器",
       title: "计算您的房源组合利润留存",
-      body: `分租总租金，减去主租约，再减去 Koda 的按房间费用。高级版使用待定费率，每间房 ${sgd(PREMIUM_PRICE_PER_ROOM_SGD)}。`,
+      body: `分房出租总租金，减去主租约，再减去 Koda 的按房间费用。高级版使用待定费率，每间房 ${sgd(PREMIUM_PRICE_PER_ROOM_SGD)}。`,
       rooms: "房间数",
       occupancy: "入住率（%）",
       averageRent: "已入住房间的平均租金（S$）",
@@ -403,7 +408,7 @@ export const zhHans = {
       monthly: "按月",
       retain: "您留存",
       perMonth: perMo,
-      gross: "分租总租金",
+      gross: "分房出租总租金",
       occupied: "已入住房间（加权）",
       fee: "Koda 费用",
       retainedYear: "一年留存",
@@ -450,7 +455,7 @@ export const zhHans = {
     healthy: "示例代理状态正常",
   },
   footer: {
-    blurb: "面向新加坡的代理式合租运营。为房东提供装修，为经营 5 至 100 间房的运营商提供按房间控制台。",
+    blurb: "面向新加坡的代理式共居运营。为房东提供一站式装修，为经营 5 至 100 间房的运营商提供按房间控制台。",
     product: "产品",
     pricing: "价格",
     fleetCalculator: "房源计算器",
@@ -467,7 +472,7 @@ export const zhHans = {
   },
   consultation: {
     title: "预约咨询",
-    description: "房东可做单位评估，运营商可看房源组合演示。此演示把表单留在您的屏幕上，不会发送到任何地方。",
+    description: "房东可做单位勘察评估，运营商可看房源组合演示。此演示把表单留在您的屏幕上，不会发送到任何地方。",
     notedTitle: "此请求只记录在这台设备上。",
     notedBody: "没有存储，也没有发送邮件。如需与人交谈，请使用 WhatsApp 占位链接。",
     whatsapp: "打开 WhatsApp 占位链接",

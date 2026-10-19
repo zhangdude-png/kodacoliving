@@ -20,10 +20,11 @@ const notoSansSC = Noto_Sans_SC({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Koda Coliving.AI — 自主合租运营",
+    default: "Koda Coliving.AI — 自主运营共享居住空间",
     template: "%s · Koda Coliving.AI",
   },
-  description: siteConfig.description,
+  description:
+    "面向新加坡的共享居住空间：代理式 AI 租客服务、已核实看房、收租，以及 S$15,000 起的一站式装修与拎包入住。",
   applicationName: siteConfig.name,
   openGraph: {
     type: "website",
