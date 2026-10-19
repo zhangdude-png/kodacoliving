@@ -1,6 +1,7 @@
 import { ArrowRight, BadgeCheck, Bot, CalendarClock, MessageCircle, Receipt, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { KodaMark } from "@/components/logo";
 import { BookConsultation } from "@/components/marketing/consultation-dialog";
 import { ConsolePreview } from "@/components/marketing/console-preview";
 import { WhatsAppIcon } from "@/components/marketing/whatsapp-icon";
@@ -22,7 +23,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 rounded-full bg-soft px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+    <p className="inline-flex items-center gap-2 rounded-full bg-[#e5f4f3] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-secondary-text">
       <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
       {children}
     </p>
@@ -104,14 +105,14 @@ export function Process({ copy }: { copy: MarketingMessages }) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
           <SectionLabel>{copy.process.label}</SectionLabel>
-          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.process.title}</h2>
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl">{copy.process.title}</h2>
           <p className="mt-3 text-ink/70">{copy.process.body}</p>
         </div>
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {copy.process.steps.map((step, index) => (
             <li key={step.title} className="rounded-3xl border border-line bg-[#faf9fc] p-5">
               <p className="font-heading text-sm font-bold text-primary">{String(index + 1).padStart(2, "0")}</p>
-              <h3 className="mt-3 font-heading text-lg font-bold">{step.title}</h3>
+              <h3 className="mt-3 font-heading text-lg font-bold text-primary">{step.title}</h3>
               <p className="mt-2 text-sm leading-6 text-ink/70">{step.body}</p>
             </li>
           ))}
@@ -130,7 +131,7 @@ export function CaseStudy({ copy }: { copy: MarketingMessages }) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel>{study.label}</SectionLabel>
-          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl">
             {study.name}
           </h2>
           <p className="mt-3 text-ink/70">{study.subtitle}</p>
@@ -151,7 +152,7 @@ export function CaseStudy({ copy }: { copy: MarketingMessages }) {
               </div>
               <div className="p-4">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-heading font-bold">{text.title}</h3>
+                  <h3 className="font-heading font-bold text-primary">{text.title}</h3>
                   <p className="shrink-0 text-sm font-semibold text-primary">{text.price}</p>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-ink/70">{text.body}</p>
@@ -173,7 +174,7 @@ export function CaseStudy({ copy }: { copy: MarketingMessages }) {
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/45">{study.beforeKicker}</p>
               <span className="shrink-0 rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{study.beforeBadge}</span>
             </div>
-            <h3 className="mt-3 font-heading text-2xl font-bold lg:col-start-1 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{study.beforeTitle}</h3>
+            <h3 className="mt-3 font-heading text-2xl font-bold text-primary lg:col-start-1 lg:row-start-2 lg:mt-0 lg:px-6 lg:pt-3">{study.beforeTitle}</h3>
             <p className="mt-1 text-sm text-ink/60 lg:col-start-1 lg:row-start-3 lg:mt-0 lg:px-6 lg:pt-1">{study.beforeSummary}</p>
             <MoneyRow
               tone="light"
@@ -289,7 +290,7 @@ export function Features({
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-3xl">
           <SectionLabel>{copy.features.label}</SectionLabel>
-          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl">
             {audience === "landlords" ? copy.features.landlordsTitle : copy.features.operatorsTitle}
           </h2>
         </div>
@@ -301,7 +302,7 @@ export function Features({
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-soft text-primary">
                   <Icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 font-heading text-lg font-bold">{feature.title}</h3>
+                <h3 className="mt-4 font-heading text-lg font-bold text-primary">{feature.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-ink/70">{feature.body}</p>
               </li>
             );
@@ -316,9 +317,16 @@ export function AgentBand({ copy }: { copy: MarketingMessages }) {
   return (
     <section id="how-it-works" className="scroll-mt-24 bg-white pb-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid items-center gap-8 rounded-[32px] bg-[linear-gradient(160deg,#2c124c,#14091f)] px-6 py-10 text-white md:grid-cols-2 md:px-10">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#c9b0ea]">{copy.agent.eyebrow}</p>
+        <div className="relative grid items-center gap-8 overflow-hidden rounded-[32px] bg-[linear-gradient(160deg,#2c124c,#14091f)] px-6 py-10 text-white md:grid-cols-2 md:px-10">
+          <KodaMark
+            tone="onDark"
+            className="pointer-events-none absolute -bottom-10 -left-8 h-40 w-40 opacity-20"
+          />
+          <div className="relative">
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#9ad4d2]">
+              <KodaMark tone="onDark" className="h-5 w-5" />
+              {copy.agent.eyebrow}
+            </p>
             <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.agent.title}</h2>
             <p className="mt-4 text-sm leading-7 text-white/75">{copy.agent.body}</p>
             <Button className="mt-6 bg-white text-ink hover:bg-white/90" asChild>
@@ -331,7 +339,7 @@ export function AgentBand({ copy }: { copy: MarketingMessages }) {
           <dl className="grid gap-3">
             {copy.agent.facts.map((fact) => (
               <div key={fact.title} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <dt className="font-heading text-2xl font-bold text-[#b6f3d4]">{fact.title}</dt>
+                <dt className="font-heading text-2xl font-bold text-[#9ad4d2]">{fact.title}</dt>
                 <dd className="mt-1 text-sm text-white/70">{fact.body}</dd>
               </div>
             ))}
@@ -346,7 +354,7 @@ export function Comparison({ copy }: { copy: MarketingMessages }) {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.comparison.title}</h2>
+        <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl">{copy.comparison.title}</h2>
         <div className="mt-8 overflow-x-auto rounded-3xl border border-line">
           <table className="w-full min-w-[640px] text-left text-sm">
             <caption className="sr-only">{copy.comparison.caption}</caption>
@@ -385,11 +393,11 @@ export function Faq({
   return (
     <section id={id} className="scroll-mt-24 bg-[#f7f6fb] py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 className="font-heading text-3xl font-bold tracking-tight">{title}</h2>
+        <h2 className="font-heading text-3xl font-bold tracking-tight text-primary">{title}</h2>
         <div className="mt-6 divide-y divide-line rounded-3xl border border-line bg-white">
           {items.map((item) => (
             <details key={item.question} className="group px-5 py-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading font-semibold">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading font-semibold text-primary">
                 {item.question}
                 <span className="text-primary transition group-open:rotate-45" aria-hidden="true">+</span>
               </summary>

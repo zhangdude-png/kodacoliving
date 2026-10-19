@@ -51,8 +51,8 @@ function LandlordCalculator({ copy }: { copy: MarketingMessages["calculator"]["l
     <section id="calculator" className="scroll-mt-24 bg-white py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{copy.eyebrow}</p>
-          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.title}</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary-text">{copy.eyebrow}</p>
+          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl">{copy.title}</h2>
           <p className="mt-3 text-ink/70">{copy.body}</p>
         </div>
         <div className="mt-8 grid gap-6 rounded-[28px] border border-line bg-[#faf9fc] p-4 md:grid-cols-[1fr_0.9fr] md:p-6">
@@ -64,7 +64,7 @@ function LandlordCalculator({ copy }: { copy: MarketingMessages["calculator"]["l
             <NumberField label={copy.setup} value={fields.setup} onChange={(value) => update("setup", value)} />
             <button
               type="button"
-              className="justify-self-start text-sm font-semibold text-primary"
+              className="justify-self-start text-sm font-semibold text-secondary-text"
               onClick={() => {
                 setFields(preset);
                 setUsePublished(true);
@@ -149,8 +149,8 @@ function FleetCalculator({ copy }: { copy: MarketingMessages["calculator"]["flee
     <section id="calculator" className="scroll-mt-24 bg-white py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{copy.eyebrow}</p>
-          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight sm:text-4xl">{copy.title}</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary-text">{copy.eyebrow}</p>
+          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl">{copy.title}</h2>
           <p className="mt-3 text-ink/70">{copy.body}</p>
         </div>
         <div className="mt-8 grid gap-6 rounded-[28px] border border-line bg-[#faf9fc] p-4 md:grid-cols-[1fr_0.9fr] md:p-6">
@@ -168,7 +168,7 @@ function FleetCalculator({ copy }: { copy: MarketingMessages["calculator"]["flee
                     type="button"
                     aria-pressed={plan === item}
                     onClick={() => setPlan(item)}
-                    className={`rounded-full px-3 py-1.5 text-sm font-semibold ${plan === item ? "bg-primary text-white" : "bg-white text-ink"}`}
+                    className={`rounded-full px-3 py-1.5 text-sm font-semibold ${plan === item ? "bg-secondary-strong text-white" : "bg-white text-ink"}`}
                   >
                     {item === "basic" ? copy.basic : copy.premium}
                   </button>
@@ -179,7 +179,7 @@ function FleetCalculator({ copy }: { copy: MarketingMessages["calculator"]["flee
                     type="button"
                     aria-pressed={billing === item}
                     onClick={() => setBilling(item)}
-                    className={`rounded-full px-3 py-1.5 text-sm font-semibold ${billing === item ? "bg-ink text-white" : "bg-white text-ink"}`}
+                    className={`rounded-full px-3 py-1.5 text-sm font-semibold ${billing === item ? "bg-secondary-strong text-white" : "bg-white text-ink"}`}
                   >
                     {item === "annual" ? copy.annual : copy.monthly}
                   </button>

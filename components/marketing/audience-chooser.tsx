@@ -4,6 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Bot, Home, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { Logo } from "@/components/logo";
 import { audiencePath, type Audience, type Locale } from "@/lib/i18n";
 import { isBotUserAgent, persistAudience, readAudience } from "@/lib/preferences";
 import { getMessages } from "@/messages";
@@ -83,13 +84,16 @@ export function AudienceChooser({
           aria-describedby="audience-description"
           onKeyDown={onKeyDown}
         >
+          <div className="mb-5 flex justify-center">
+            <Logo variant="horizontal" decorative className="h-14 sm:h-16" />
+          </div>
           <Dialog.Title
             id="audience-title"
-            className="pr-10 font-heading text-2xl font-bold tracking-tight text-ink sm:text-3xl"
+            className="px-10 text-center font-heading text-2xl font-bold tracking-tight text-primary sm:text-3xl"
           >
             {copy.title}
           </Dialog.Title>
-          <Dialog.Description id="audience-description" className="mt-2 text-sm leading-6 text-ink/70">
+          <Dialog.Description id="audience-description" className="mt-2 text-center text-sm leading-6 text-ink/70">
             {copy.description}
           </Dialog.Description>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">

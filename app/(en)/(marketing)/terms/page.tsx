@@ -14,7 +14,7 @@ export default function TermsPage() {
     <>
       <SiteHeader audience="operators" />
       <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <h1 className="font-heading text-4xl font-bold">Terms</h1>
+        <h1 className="font-heading text-4xl font-bold text-primary">Terms</h1>
         <div className="mt-6 grid gap-4 text-sm leading-7 text-ink/75">
           <p>
             Koda Coliving.AI is shown here as a first version. Basic is S$15 per room per month billed annually, or S$20 billed monthly. Premium is displayed at S$30 per room per month and is marked TBD while S$25, S$30, and S$35 are under review.

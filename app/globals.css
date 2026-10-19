@@ -6,6 +6,8 @@
   --primary: #60308d;
   --primary-dark: #4a2270;
   --secondary: #44898c;
+  --secondary-strong: #3e7e80;
+  --secondary-text: #336668;
   --secondary-ink: #1a4e50;
   --tertiary: #5e4400;
   --muted: #f5f5f5;
@@ -23,6 +25,8 @@
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
+  --color-secondary-strong: var(--secondary-strong);
+  --color-secondary-text: var(--secondary-text);
   --color-secondary-ink: var(--secondary-ink);
   --color-tertiary: var(--tertiary);
   --color-muted: var(--muted);

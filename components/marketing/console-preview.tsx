@@ -69,7 +69,7 @@ export function ConsolePreview({ copy }: { copy: MarketingMessages["console"] })
               <p className="text-xs text-ink/60">{copy.chatNote}</p>
             </div>
             <div className="text-right text-xs">
-              <Badge tone="purple">{copy.agentBadge}</Badge>
+              <Badge tone="teal">{copy.agentBadge}</Badge>
               <p className="mt-1 text-ink/50">{copy.response}</p>
             </div>
           </div>
@@ -78,7 +78,7 @@ export function ConsolePreview({ copy }: { copy: MarketingMessages["console"] })
               <p className="text-[11px] font-semibold text-ink/50">{copy.residentMessageLabel}</p>
               <p className="mt-1">{copy.residentMessage}</p>
             </div>
-            <div className="ml-auto max-w-[92%] rounded-2xl bg-primary px-3 py-2 text-sm text-white">
+            <div className="ml-auto max-w-[92%] rounded-2xl rounded-br-md bg-secondary-strong px-3 py-2 text-sm text-white">
               <p className="text-[11px] font-semibold text-white/70">{copy.agentMessageLabel}</p>
               <p className="mt-1">{copy.agentMessage}</p>
               <p className="mt-2 text-xs text-white/80">{copy.dispatched}</p>

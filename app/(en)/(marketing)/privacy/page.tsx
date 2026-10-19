@@ -14,7 +14,7 @@ export default function PrivacyPage() {
     <>
       <SiteHeader audience="operators" />
       <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <h1 className="font-heading text-4xl font-bold">Privacy</h1>
+        <h1 className="font-heading text-4xl font-bold text-primary">Privacy</h1>
         <div className="mt-6 grid gap-4 text-sm leading-7 text-ink/75">
           <p>
             This deployment is a product demo. The operator console uses labelled seed data stored in the app. It does not create accounts, and the consultation form does not transmit what you type.

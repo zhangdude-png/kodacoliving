@@ -54,7 +54,7 @@ export function BookConsultation({
             <p className="font-semibold">{copy.notedTitle}</p>
             <p className="mt-1 text-ink/70">{copy.notedBody}</p>
             <a
-              className="mt-3 inline-flex font-semibold text-primary"
+              className="mt-3 inline-flex font-semibold text-secondary-text"
               href={siteConfig.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"

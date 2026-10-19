@@ -33,13 +33,13 @@ export function SiteHeader({
     <header className="sticky top-0 z-40 border-b border-line/80 bg-white/95 backdrop-blur">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex min-h-16 items-center justify-between gap-3">
-          <Logo href={audiencePath(locale, "operators")} subline={copy.logoSubline} />
+          <Logo href={audiencePath(locale, "operators")} className="h-11" />
           <nav className="hidden items-center gap-5 xl:flex" aria-label={copy.header.primary}>
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-ink/75 hover:text-ink"
+                className="text-sm font-medium text-secondary-text hover:underline"
               >
                 {link.label}
               </Link>
@@ -83,7 +83,7 @@ export function SiteHeader({
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2 text-sm font-medium hover:bg-muted"
+                className="rounded-xl px-3 py-2 text-sm font-medium text-secondary-text hover:bg-muted"
               >
                 {link.label}
               </Link>
@@ -190,7 +190,7 @@ function SwitchLink({
       onClick={onClick}
       className={cn(
         "inline-flex min-h-10 flex-1 items-center justify-center rounded-full px-3 py-1.5 text-center transition",
-        active ? "bg-primary text-white shadow-sm" : "text-ink/70 hover:bg-white hover:text-ink",
+        active ? "bg-secondary-strong text-white shadow-sm" : "text-ink/70 hover:bg-white hover:text-ink",
       )}
     >
       {children}
@@ -204,7 +204,7 @@ export function AnnouncementBar({ locale = "en" }: { locale?: Locale }) {
     <div className="bg-[#e5f4f3] text-secondary-ink">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2.5 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
+          <span className="rounded-full bg-secondary-strong px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
             {copy.badge}
           </span>
           <span>{copy.body}</span>

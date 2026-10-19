@@ -23,13 +23,13 @@ export function Pricing({ locale = "en" }: { locale?: Locale }) {
     <section id="pricing" className="scroll-mt-24 bg-[#f7f6fb] py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{copy.eyebrow}</p>
-          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight sm:text-5xl">{copy.title}</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary-text">{copy.eyebrow}</p>
+          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-primary sm:text-5xl">{copy.title}</h2>
           <p className="mt-3 text-ink/70">{copy.subtitle}</p>
           <div className="mt-6 inline-flex rounded-full border border-line bg-white p-1 text-sm font-semibold">
             <button
               type="button"
-              className={`rounded-full px-4 py-2 ${billing === "annual" ? "bg-primary text-white" : "text-ink/70"}`}
+              className={`rounded-full px-4 py-2 ${billing === "annual" ? "bg-secondary-strong text-white" : "text-ink/70"}`}
               onClick={() => setBilling("annual")}
               aria-pressed={billing === "annual"}
             >
@@ -37,7 +37,7 @@ export function Pricing({ locale = "en" }: { locale?: Locale }) {
             </button>
             <button
               type="button"
-              className={`rounded-full px-4 py-2 ${billing === "monthly" ? "bg-primary text-white" : "text-ink/70"}`}
+              className={`rounded-full px-4 py-2 ${billing === "monthly" ? "bg-secondary-strong text-white" : "text-ink/70"}`}
               onClick={() => setBilling("monthly")}
               aria-pressed={billing === "monthly"}
             >
@@ -51,9 +51,9 @@ export function Pricing({ locale = "en" }: { locale?: Locale }) {
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/45">{copy.coreFleet}</p>
               <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-semibold">{copy.boutique}</span>
             </div>
-            <h3 className="mt-3 font-heading text-3xl font-bold">{copy.basicName}</h3>
+            <h3 className="mt-3 font-heading text-3xl font-bold text-primary">{copy.basicName}</h3>
             <p className="mt-2 text-sm leading-6 text-ink/70">{copy.basicBody}</p>
-            <p className="mt-6 font-heading text-5xl font-extrabold tracking-tight">
+            <p className="mt-6 font-heading text-5xl font-extrabold tracking-tight text-primary">
               {sgd(basic)}
               <span className="ml-1 text-base font-semibold text-ink/50">{copy.perRoomMonth}</span>
             </p>
